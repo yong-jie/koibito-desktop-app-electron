@@ -111,14 +111,14 @@ background: rgba(0,0,0,0.1);
 .messages_view
 {
   width: 100%;
-  max-height: calc(100vh - 96px); /* window's height - (top_menu+bottom_wrapper) */
+  max-height: calc(100vh - 100px); /* window's height - (top_menu+bottom_wrapper) */
   overflow-y: auto;
 }
 
 .messages_view ul
 {
   padding: 0;
-  margin: 0;
+  margin: 0 0 15px 0;
   list-style-type: none;
 }
 
