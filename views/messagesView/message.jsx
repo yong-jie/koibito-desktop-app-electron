@@ -8,6 +8,6 @@ export default class Message extends React.PureComponent {
     const hour = date.getHours()>12?date.getHours()-12:date.getHours();
     const minute = date.getMinutes();
     const ampm = date.getHours()>12?'PM':'AM';
-    return `${hour}:${minute}${ampm}`;
+    return `${hour}:${minute}${ampm} `;
   }
 }

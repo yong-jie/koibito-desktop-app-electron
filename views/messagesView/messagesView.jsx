@@ -12,7 +12,8 @@ export default class MessagesView extends React.PureComponent {
   }
 
   componentWillUpdate() {
-    if (this.div.scrollTop + this.div.offsetHeight === this.div.scrollHeight) {
+    // 5px offset cus some windows computers are a little bit off.
+    if (this.div.scrollTop + this.div.offsetHeight + 5 >= this.div.scrollHeight) {
       this.scrollToTheBottom = true;
     }
   }
