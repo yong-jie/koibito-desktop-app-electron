@@ -1,0 +1,329 @@
+html, body, #app { height: 100%; }
+
+*, *:before, *:after
+{
+  -webkit-box-sizing: border-box; 
+  -moz-box-sizing: border-box; 
+  box-sizing: border-box;
+}
+
+body
+{
+  background-image: url("../img/chat_bg_tile.png");
+  background-repeat: repeat;
+  background-size: 190px;
+  margin: 0;
+  
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 100%;
+
+  overflow: hidden;
+}
+
+/* To ensure footer stays at bottom during scrolling */
+.chat_window
+{
+  min-height: 100%;
+  position: relative;
+  font-size: 0.75em;
+}
+
+/**
+ * SCROLLBAR STYLING
+ ************************************************** */
+
+::-webkit-scrollbar
+{
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb
+{
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.25);
+}
+::-webkit-scrollbar-thumb:window-inactive
+{
+background: rgba(0,0,0,0.1); 
+}
+
+/**
+ * TOP MENU BAR
+ ************************************************** */
+
+.top_menu
+{
+  background-color: #9276b8;
+  width: 100%;
+  padding: 5px 0;
+  box-shadow: 0 1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.top_menu .avatar
+{
+  margin-left: 8px;
+  width: 35px;
+  vertical-align: middle;
+  display: inline-block;
+  
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.top_menu .details
+{
+  vertical-align: middle; 
+  display: inline-block;
+}
+
+.top_menu .title
+{
+  color: #eee;
+  font-weight: bold;
+  margin-left: 5px;
+  display: block;
+}
+
+.top_menu .status
+{
+  color: #cecece;
+  margin-left: 5px;
+  display: block;
+}
+
+/**
+ * MESSAGES DISPLAY
+ ************************************************** */
+
+.messages_view
+{
+  width: 100%;
+  max-height: calc(100vh - 96px); /* window's height - (top_menu+bottom_wrapper) */
+  overflow-y: auto;
+}
+
+.messages_view ul
+{
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.messages_view ul li
+{
+  /* to ensure non-overlapping of chat bubbles on the same row */
+  display: block;
+  clear: both;
+
+  margin: 20px 15px 0 15px;
+}
+
+.messages_view .receiver_message
+{
+  max-width: 75%;
+}
+
+.messages_view .sender_message
+{
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: flex-end;
+  flex-basis: auto;
+  margin-right: 10px;
+  position: relative; /* for avatar to inherit positioning */
+}
+
+.messages_view .bubble
+{
+  background-color: #eee;
+
+  padding: 8px 10px;
+  margin-bottom: 1px; /* to render shadow in flexbox */
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+
+  position: relative; /* for triangles to inherit positioning */
+  display: inline-block; /* to contain timestamp in bubble */
+
+  max-width: 100%;
+}
+
+.text {
+  white-space: -moz-pre-wrap; /* firefox */
+  white-space: -o-pre-wrap;   /* opera 7 */
+  white-space: -pre-wrap;     /* opera <7 */
+  white-space: pre-wrap;      /* css3 */
+  word-wrap: break-word;
+}
+
+.messages_view .sender_message .bubble
+{
+  background-color: #fb9fba;
+  margin-right: 10px;
+  max-width: calc(100% - 100px); /* prevent bubble from taking up entire width */
+}
+
+/* triangle on left for receiver's bubble */
+.messages_view .receiver_message .bubble:before
+{
+  content:"";
+  position: absolute;
+  top: 10px;
+  left: -7px;
+  border-width: 5px 8px 5px 0;
+  border-style: solid;
+  border-color: transparent #eee;
+  /* reduce the damage in FF3.0 */ 
+  display:block;
+  width: 0;
+}
+
+/* triangle on right for sender's bubble */
+.messages_view .sender_message .bubble:before
+{
+  content:"";
+  position: absolute;
+  top: 10px;
+  right: -7px;
+  border-width: 5px 0 5px 8px;
+  border-style: solid;
+  border-color: transparent #fb9fba;
+  /* reduce the damage in FF3.0 */ 
+  display:block;
+  width: 0;
+}
+
+.messages_view .datetimestamp
+{
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: center;
+}
+
+.messages_view .datetimestamp .text
+{
+  background: rgba(0,0,0,0.25);
+  color: #eee;
+  padding: 4px 8px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
+
+.messages_view .receiver_message .timestamp,
+.messages_view .sender_message .timestamp
+{
+  float: right;
+  margin: 8px -4px -4px 5px;
+
+  color: #fb85a7;
+  font-size: 0.917em;
+}
+
+.messages_view .sender_message .timestamp
+{
+  color: #eee;
+}
+
+.img-seen, .img-notseen, .img-error, .img-sending
+{
+  background-image: url('../img/status_sprite.png');
+  background-repeat: no-repeat;
+  width: 9px;
+}
+ 
+.img-seen { background-position: 0 0; }
+.img-notseen { background-position: -9px 0; }
+.img-sending { background-position: -18px 0; }
+.img-error { background-position: -27px 0; }
+
+.messages_view .avatar
+{
+  width: 30px;
+  height: 30px;
+  vertical-align: top;
+  display: inline-block;
+  
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+/**
+ * USER MESSAGE INPUT
+ ************************************************** */
+ 
+.bottom_wrapper
+{
+  background-color: #eee;
+  margin: 0;
+  width: 100%;
+  box-shadow: 0 -1px 1px 0px rgba(0, 0, 0, 0.1);
+  
+  position: absolute;
+  bottom: 0;
+  clear: both;
+}
+
+#userInput
+{
+  background-color: white;
+  display:inline-block;
+  width: calc(100% - 72px);
+  margin: 10px 4px 10px 8px;
+  padding: 8px;
+  max-height: 5em;
+  resize: none;
+  
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  
+  overflow-y: auto;
+  outline: none;
+
+  font-family: inherit;
+  font-size: inherit;
+}
+
+#sendBtn
+{
+  float: right;
+  
+  
+  background-color: #9276b8;
+  color: #fff;
+  -webkit-appearance: none;
+  margin: 10px 8px 10px 4px;
+  padding: 8px;
+  min-height: 32px;
+  
+  border: none;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  
+  outline: none;
+}
+
+#sendBtn:hover
+{
+  background-color: #6d4f96;
+}

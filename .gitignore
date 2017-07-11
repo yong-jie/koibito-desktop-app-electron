@@ -1,0 +1,10 @@
+# images
+img/
+
+# node modules
+node_modules/
+
+.DS_Store
+
+# The reference html file
+reference.html
