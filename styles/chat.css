@@ -1,5 +1,10 @@
+/**
+ * OVERALL
+ ************************************************** */
+
 html, body, #app { height: 100%; }
 
+/* for consistent calculation of content width */
 *, *:before, *:after
 {
   -webkit-box-sizing: border-box; 
@@ -10,21 +15,28 @@ html, body, #app { height: 100%; }
 body
 {
   background-image: url("../img/chat_bg_tile.png");
-  background-repeat: repeat;
   background-size: 190px;
+  background-repeat: repeat;
   margin: 0;
-  
+
   font-family: Arial, Helvetica, sans-serif;
   font-size: 100%;
 
   overflow: hidden;
 }
 
-/* To ensure footer stays at bottom during scrolling */
 .chat_window
 {
-  min-height: 100%;
-  position: relative;
+  height: 100%;
+
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  /* putting flex items into a column */
+  /*-webkit-box-orient: vertical */ /* safari support */
+  -webkit-flex-direction: column;
+  flex-direction: column;
+
   font-size: 0.75em;
 }
 
@@ -56,7 +68,7 @@ body
 }
 ::-webkit-scrollbar-thumb:window-inactive
 {
-background: rgba(0,0,0,0.1); 
+  background: rgba(0,0,0,0.1); 
 }
 
 /**
@@ -66,18 +78,21 @@ background: rgba(0,0,0,0.1);
 .top_menu
 {
   background-color: #9276b8;
-  width: 100%;
-  padding: 5px 0;
   box-shadow: 0 1px 0px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center; /* for vertical alignment between avatar and details */
 }
 
 .top_menu .avatar
 {
-  margin-left: 8px;
   width: 35px;
-  vertical-align: middle;
-  display: inline-block;
-  
+  height: 35px;
+
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
@@ -85,23 +100,18 @@ background: rgba(0,0,0,0.1);
 
 .top_menu .details
 {
-  vertical-align: middle; 
-  display: inline-block;
+  margin-left: 5px;
 }
 
 .top_menu .title
 {
   color: #eee;
   font-weight: bold;
-  margin-left: 5px;
-  display: block;
 }
 
 .top_menu .status
 {
   color: #cecece;
-  margin-left: 5px;
-  display: block;
 }
 
 /**
@@ -110,30 +120,23 @@ background: rgba(0,0,0,0.1);
 
 .messages_view
 {
-  width: 100%;
-  max-height: calc(100vh - 100px); /* window's height - (top_menu+bottom_wrapper) */
+  height: 100%;
   overflow-y: auto;
 }
 
 .messages_view ul
 {
+  margin: 15px 10px 15px 15px;
   padding: 0;
-  margin: 0 0 15px 0;
   list-style-type: none;
 }
 
 .messages_view ul li
 {
-  /* to ensure non-overlapping of chat bubbles on the same row */
+  /* to ensure no overlapping of chat bubbles on the same row */
   display: block;
   clear: both;
-
-  margin: 20px 15px 0 15px;
-}
-
-.messages_view .receiver_message
-{
-  max-width: 75%;
+  margin: 15px 0;
 }
 
 .messages_view .sender_message
@@ -141,18 +144,16 @@ background: rgba(0,0,0,0.1);
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
-  justify-content: flex-end;
-  flex-basis: auto;
-  margin-right: 10px;
-  position: relative; /* for avatar to inherit positioning */
+  justify-content: flex-end; /* to right align bubble */
 }
 
 .messages_view .bubble
 {
   background-color: #eee;
-
   padding: 8px 10px;
-  margin-bottom: 1px; /* to render shadow in flexbox */
+
+  max-width: 75%; /* ensure no leaking occurs */
+
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
@@ -160,23 +161,13 @@ background: rgba(0,0,0,0.1);
 
   position: relative; /* for triangles to inherit positioning */
   display: inline-block; /* to contain timestamp in bubble */
-
-  max-width: 100%;
-}
-
-.text {
-  white-space: -moz-pre-wrap; /* firefox */
-  white-space: -o-pre-wrap;   /* opera 7 */
-  white-space: -pre-wrap;     /* opera <7 */
-  white-space: pre-wrap;      /* css3 */
-  word-wrap: break-word;
 }
 
 .messages_view .sender_message .bubble
 {
   background-color: #fb9fba;
   margin-right: 10px;
-  max-width: calc(100% - 100px); /* prevent bubble from taking up entire width */
+  max-width: 65%;
 }
 
 /* triangle on left for receiver's bubble */
@@ -222,9 +213,19 @@ background: rgba(0,0,0,0.1);
   background: rgba(0,0,0,0.25);
   color: #eee;
   padding: 4px 8px;
+
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
+}
+
+.messages_view .text
+{
+  white-space: -moz-pre-wrap; /* firefox */
+  white-space: -o-pre-wrap;   /* opera 7 */
+  white-space: -pre-wrap;     /* opera <7 */
+  white-space: pre-wrap;      /* css3 */
+  word-wrap: break-word;
 }
 
 .messages_view .receiver_message .timestamp,
@@ -258,8 +259,6 @@ background: rgba(0,0,0,0.1);
 {
   width: 30px;
   height: 30px;
-  vertical-align: top;
-  display: inline-block;
   
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -273,28 +272,22 @@ background: rgba(0,0,0,0.1);
 .bottom_wrapper
 {
   background-color: #eee;
-  margin: 0;
-  width: 100%;
   box-shadow: 0 -1px 1px 0px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  padding: 8px;
   
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
   align-items: flex-end;
-  
-  position: absolute;
-  bottom: 0;
-  clear: both;
+  flex: 0 0 auto;
 }
 
 #userInput
 {
   background-color: white;
-  width: 100%;
-  margin: 10px 4px 10px 8px;
   padding: 8px;
   max-height: 5em;
-  resize: none;
   
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -302,28 +295,29 @@ background: rgba(0,0,0,0.1);
   
   overflow-y: auto;
   outline: none;
-  
+  resize: none;
+
   font-family: inherit;
   font-size: inherit;
+
+  flex: 1 1 auto;
 }
 
 #sendBtn
 {
   background-color: #9276b8;
   color: #fff;
-  
-  -webkit-appearance: none;
-  margin: 10px 8px 10px 4px;
+  margin-left: 8px;
   padding: 8px;
   max-height: 32px;
-  min-height: 32px;
   
-  border: none;
+  -webkit-appearance: none;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  
-  outline: none;
+  border: none;
+
+  flex: 0 0 auto;
 }
 
 #sendBtn:hover

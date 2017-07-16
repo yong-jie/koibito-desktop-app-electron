@@ -9,8 +9,8 @@ export default class TopMenu extends React.Component {
       <div className="top_menu">
         <img src="img/sexybeast.jpg" className="avatar" />
         <div className="details">
-          <span className="title">Licking my tits</span>
-          <span className="status">watching my cleavage</span>
+          <div className="title">Licking my tits</div>
+          <div className="status">watching my cleavage</div>
         </div>
       </div>
     );
