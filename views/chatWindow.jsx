@@ -1,6 +1,10 @@
 'use babel';
 
 import React from 'react';
+
+import ConnectionManager from '../scripts/connectionManager';
+import { credentials } from '../config';
+
 import InputAndSend from './inputAndSend/inputAndSend.jsx';
 import TopMenu from './topMenu.jsx';
 import MessagesView from './messagesView/messagesView.jsx';
@@ -12,21 +16,38 @@ export default class ChatWindow extends React.PureComponent {
     super();
     this.state = {messages: [<PartnerMessage message='Why am i so sexy?' time={1} key={1}/>]};
     this.counter = 2;
+    this.connectionManager = new ConnectionManager();
   }
 
   shouldComponentUpdate(a, b) {
     return true;
   }
   
+  componentWillUnmount() {
+    this.connectionManager.deinitialize();;
+  }
+
+  sendMessage(msgObject) {
+    const msg = msgObject;
+    msg.sender = credentials.username;
+    msg.action = 'new message';
+    this.pushMessage(msg);
+    this.connectionManager.sendMessage(msg);
+  }
+
   pushMessage(msgObject) {
     const messages = this.state.messages;
-    if (msgObject.sender === 'user') {
+    if (msgObject.sender === credentials.username) {
       messages.push(<UserMessage key={this.counter} message={msgObject.message} time={msgObject.time} />);
     } else {
       messages.push(<PartnerMessage key={this.counter} message={msgObject.message} time={msgObject.time} />)
     }
     this.counter++;
     this.setState({messages});
+  }
+  
+  componentWillMount() {
+    this.connectionManager.bindCallbacks({pushMessage: this.pushMessage.bind(this)});
   }
 
   render() {
@@ -35,7 +56,7 @@ export default class ChatWindow extends React.PureComponent {
         <TopMenu />
         <MessagesView messages={this.state.messages}/>
         
-        <InputAndSend pushMessage={this.pushMessage.bind(this)}/>
+        <InputAndSend sendMessage={this.sendMessage.bind(this)}/>
       </div>
     );
   }

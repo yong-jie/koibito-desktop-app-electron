@@ -20,7 +20,7 @@ export default class InputAndSend extends React.Component {
   }
 
   onSendButtonPressed(e) {
-    this.props.pushMessage({sender: 'user', time: new Date(), message: this.state.inputMessage });
+    this.props.sendMessage({ time: new Date(), message: this.state.inputMessage });
     this.setState({ inputMessage: '' });
     this.enterButtonPressed = true;
   }

@@ -26,6 +26,7 @@ export default class MessageInput extends React.PureComponent {
     this.textarea.focus();
     autosize(this.textarea);
   }
+  
   componentDidUpdate() {
     if (this.props.enterButtonPressed) {
       this.textarea.dispatchEvent(new Event('autosize:update'));
@@ -47,54 +48,3 @@ export default class MessageInput extends React.PureComponent {
     );
   }
 }
-
-/*
-export default class MessageInput extends React.Component {
-  constructor() {
-    super();
-  }
-
-  
-  onInput(e) {
-    this.setState({inputMessage: e.target.innerHTML});
-    this.props.setInputMessage(e.target.innerHTML);
-  }
-  
-
-  onKeyPress(e) {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      if (!e.shiftKey) {
-        e.target.innerHTML = '';
-        this.props.onSendButtonPressed();
-      } else {
-        e.target.innerHTML = e.target.innerHTML + '\r\n';
-        this.props.appendNewLine();
-        e.target.scrollTop = e.target.scrollHeight;
-      }
-    }
-  }
-
-  render() {
-    return (
-      <textarea id="userInput" placeholder="Write a message..."></textarea>
-    );
-  }
-}
-*/
-
-
-
-/* <textarea className="form-control" rows={1}
-      onKeyPress={this.onKeyPress.bind(this)}
-      onChange={this.onChange.bind(this)}
-      value={this.props.message} ></textarea>
-      */
-/*
-<div id="userInput"
-      contentEditable="true"
-      data-placeholder="Write a message..."
-      onInput={this.onInput.bind(this)}
-      onKeyPress={this.onKeyPress.bind(this)}>
-      </div>
-*/

@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "async": "^2.5.0",
     "autosize": "^3.0.21",
     "babel-register": "^6.24.1",
     "react": "^15.6.1",
