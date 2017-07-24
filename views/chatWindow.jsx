@@ -24,7 +24,7 @@ export default class ChatWindow extends React.PureComponent {
   }
   
   componentWillUnmount() {
-    this.connectionManager.deinitialize();;
+    this.connectionManager.deinitialize();
   }
 
   sendMessage(msgObject) {
