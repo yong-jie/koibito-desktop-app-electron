@@ -79,7 +79,7 @@ body
 {
   background-color: #9276b8;
   box-shadow: 0 1px 0px rgba(0, 0, 0, 0.1);
-  padding: 5px;
+  padding: 6px;
 
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -200,7 +200,7 @@ body
   width: 0;
 }
 
-.messages_view .datetimestamp
+.messages_view .datestamp
 {
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -208,7 +208,7 @@ body
   justify-content: center;
 }
 
-.messages_view .datetimestamp .text
+.messages_view .datestamp .text
 {
   background: rgba(0,0,0,0.25);
   color: #eee;
@@ -316,6 +316,7 @@ body
   -moz-border-radius: 3px;
   border-radius: 3px;
   border: none;
+  outline: none;
 
   flex: 0 0 auto;
 }

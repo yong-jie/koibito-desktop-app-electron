@@ -4,9 +4,6 @@ import { getUnescapedDelimiterIndex, getUnescapedDataDelimiterIndex, stripEscape
   dataParser, sendEscapedObjectWithoutData } from './helpers/data-parser';
 import { ESCAPE, tcpDelimiter, dataDelimiter, credentials } from '../config';
 
-
-
-
 export default class ConnectionManager {
   constructor() {
     this.socket = null;
@@ -27,7 +24,7 @@ export default class ConnectionManager {
   connectToHost() {
     try {
       this.socket = net.createConnection({ host: 'api.koibito.cloudy.moe', port: 3002 }, () => {
-        console.log('connected to server!');
+        console.log('Connected to server!');
         this.connected = true;
       });
     } catch (err) {
@@ -85,7 +82,6 @@ export default class ConnectionManager {
 
     this.socket.on('end', () => {
       console.log('Connection closed.');
-      this.connected = false;
       this.socket.end();
     });
 
