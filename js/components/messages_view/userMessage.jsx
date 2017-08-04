@@ -13,7 +13,7 @@ export default class UserMessage extends Timestamp {
           <span className="text">{this.props.message}</span>
           <span className="timestamp">{this.formatTimestamp()}&nbsp;
             {/*src is a base-64 encoded transparent PNG file*/}
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACAAQMAAAD58POIAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABlJREFUeNpjYBgFo2AUjIJRMApGwSigLwAACIAAAcNXzB0AAAAASUVORK5CYII=" className="img-seen" />
+            <img className={this.props.seenStatus} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACAAQMAAAD58POIAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAABlJREFUeNpjYBgFo2AUjIJRMApGwSigLwAACIAAAcNXzB0AAAAASUVORK5CYII=" />
           </span>
         </div>
         <img src="img/default.jpg" className="avatar" />

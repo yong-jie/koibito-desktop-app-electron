@@ -14,16 +14,16 @@ export default class MessagesView extends React.PureComponent {
     messagesActions.fetchMessages();
   }
 
-  // check if user is scrolled to bottom
   componentWillUpdate() {
+    // check if user is scrolled to bottom
     // Add 29 to even out offsetHeight to full height when userInput is at max height
     if (this.div.scrollTop + this.div.offsetHeight + 29 >= this.div.scrollHeight) {
       this.scrollToTheBottom = true;
     }
   }
 
-  // auto scroll to bottom if user is already at bottom
   componentDidUpdate() {
+    // auto scroll to bottom if user is already at bottom
     if (this.scrollToTheBottom) {
       this.div.scrollTop = this.div.scrollHeight;
       this.scrollToTheBottom = false;
@@ -33,8 +33,8 @@ export default class MessagesView extends React.PureComponent {
   render() {
     const { messages } = this.props;
     const mappedMessages = messages.map(message => (message.sender === credentials.username?
-                                                    <UserMessage key={message.id} message={message.text}/>:
-                                                    <PartnerMessage key={message.id} message={message.text}/>));
+                                                    <UserMessage key={message.id} message={message.text} seenStatus={message.seenStatus} />:
+                                                    <PartnerMessage key={message.id} message={message.text} />));
 
     return (
       <div className="messages_view" ref={c=>this.div=c}>

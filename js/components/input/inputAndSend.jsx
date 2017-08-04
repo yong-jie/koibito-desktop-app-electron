@@ -49,7 +49,7 @@ export class InputAndSend extends React.PureComponent {
     // prevent message sending if no input visible
     if (inputText !== '') {
       const { messagesActions } = this.props;
-      messagesActions.pushMessage(new Date().getTime(), credentials.username, inputText);
+      messagesActions.pushMessage(new Date().getTime(), credentials.username, inputText, "img-notseen");
       this.newMessagePushed = true;
       // reset input state to blank string
       const { inputActions } = this.props;
