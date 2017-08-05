@@ -77,7 +77,7 @@ export default class ConnectionManager {
         breakAndEndSocket = !(await this.processReceivedMessage(parseResult));
         return 0;
       });
-      if (breakAndEndSocket) return socket.end();
+      if (breakAndEndSocket) return this.socket.end();
     });
 
     this.socket.on('end', () => {
